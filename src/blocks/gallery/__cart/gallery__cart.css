@@ -1,0 +1,6 @@
+.gallery__cart {
+    display: flex;
+    flex-flow: column;
+    padding: 0;
+    margin: 0;
+}

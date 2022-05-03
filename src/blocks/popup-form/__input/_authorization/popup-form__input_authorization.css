@@ -1,0 +1,11 @@
+.popup-form__input_authorization{
+    width: 90%;
+    color: #CCCCCC;
+    margin: 0 auto ;
+    border: none;
+    background: none;
+}
+
+.popup-form__input_authorization:not(:last-child){
+    border-bottom: 2px solid #CCCCCC;
+   }

@@ -1,0 +1,13 @@
+.gallery {
+    display: grid;
+    gap: 20px 17px;
+    grid-template: repeat(2, 1fr) / repeat(auto-fit, 282px);
+    justify-content: center;
+    margin: 51px auto 67px auto;
+}
+
+@media screen and (min-width: 320px) and (max-width: 767px) {
+    .gallery {
+        margin: 35px auto 0 auto;
+    }
+}

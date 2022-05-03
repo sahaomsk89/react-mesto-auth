@@ -1,0 +1,8 @@
+.profile__avatar-wrap {
+    box-sizing: border-box;
+    height: 120px;
+    left: 0;
+    position: relative;
+    top: 0;
+    width: 120px;
+}
