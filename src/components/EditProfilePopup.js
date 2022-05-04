@@ -48,27 +48,27 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser, isLoading }) {
       <input
         type="text"
         placeholder="Введите имя"
-        value={name}
+        value={name || ""}
         onChange={handleName}
         className="popup-form__input popup-form__input_name"
         id="name"
         name="name"
         minLength="2"
         maxLength="40"
-        required
+        require="true"
       />
       <span className="input-name-error popup-form__error"></span>
       <input
         type="text"
         placeholder="Описание"
-        value={about}
+        value={about || ""}
         onChange={handleJob}
         className="popup-form__input popup-form__input_job"
         id="about"
         name="about"
         minLength="2"
         maxLength="200"
-        required
+        require="true"
       />
       <span className="input-job-error popup-form__error"></span>
     </PopupWithForm>

@@ -40,16 +40,14 @@ function App(props) {
 
   React.useEffect(() => {
     handleCheckToken();
+  }, []);
+
+  React.useEffect(() => {
     if (loggedIn) {
-      history.push("/main");
+      history.push("/");
       return;
     }
-    Promise.all([api.getProfile(), api.getInitialCards()])
-      .then(([userInfo, cardInfo]) => {
-        setCurrentUser(userInfo);
-        setCards(cardInfo);
-      })
-      .catch((err) => console.log(`Ошибка: ${err}`));
+    history.push("/sign-up");
   }, [loggedIn]);
 
   const handleLogin = (email, password) => {
@@ -59,7 +57,7 @@ function App(props) {
         if (res) {
           localStorage.setItem("jwt", res.token);
           setLoggedIn(true);
-          history.push("/main");
+          history.push("/");
         }
       })
       .catch(() => {
@@ -104,6 +102,15 @@ function App(props) {
     localStorage.removeItem("jwt");
     history.push("/sign-in");
   };
+
+  React.useEffect(() => {
+    Promise.all([api.getProfile(), api.getInitialCards()])
+      .then(([userInfo, cardInfo]) => {
+        setCurrentUser(userInfo);
+        setCards(cardInfo);
+      })
+      .catch((err) => console.log(`Ошибка: ${err}`));
+  }, []);
 
   function handleCardLike(card) {
     // Снова проверяем, есть ли уже лайк на этой карточке
@@ -164,7 +171,10 @@ function App(props) {
         setCurrentUser(avatar);
         closeAllPopups();
       })
-      .catch((err) => console.log(`Ошибка: ${err}`));
+      .catch((err) => console.log(`Ошибка: ${err}`))
+      .finally(() => {
+        setIsLoading(false);
+      });
   };
 
   const handleAddPlaceSubmit = (inputCard) => {
@@ -219,7 +229,7 @@ function App(props) {
       <CurrentUserContext.Provider value={currentUser}>
         <Header userEmail={userInfo} SignOut={handleSignOut} />
         <Switch>
-          <ProtectedRoute exact path="/main" loggedIn={loggedIn}>
+          <ProtectedRoute exact path="/" loggedIn={loggedIn}>
             <Main
               onEditProfile={handleEditProfileClick}
               onEditAvatar={handleEditAvatarClick}
@@ -241,8 +251,8 @@ function App(props) {
             />
           </Route>
 
-          <Route exact path="/">
-            {loggedIn ? <Redirect to="/main" /> : <Redirect to="/sign-in" />}
+          <Route>
+            {loggedIn ? <Redirect to="/" /> : <Redirect to="/sign-in" />}
           </Route>
         </Switch>
 

@@ -31,7 +31,7 @@ function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar, isLoading }) {
         className="popup-form__input  popup-form__input_avatar"
         id="card-avatar"
         name="avatar-link"
-        require
+        require="true"
       />
       <span className="popup-form__error card-avatar-error"></span>
     </PopupWithForm>

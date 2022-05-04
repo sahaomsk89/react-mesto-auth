@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, Route, Switch } from "react-router-dom";
 
 function Header(props) {
   let location = useLocation();
@@ -13,10 +13,23 @@ function Header(props) {
           location.pathname === "/" && "header__container_none"
         }`}
       >
-        {location.pathname === "/main" ? (
+        <Switch>
+          <Route path="/sign-up">
+            <Link to="/sign-in" className="header__authorization">
+              Войти
+            </Link>
+          </Route>
+          <Route path="/sign-in">
+            <Link to="/sign-up" className="header__authorization">
+              Регистрация
+            </Link>
+          </Route>
+        </Switch>
+        
+        {location.pathname === "/" ? (
           <>
             <div className="header__email">{email}</div>
-            {/* <button onClick={props.handleSignOut} className="header__authorization">Выйти</button> */}
+
             <Link
               onClick={props.SignOut}
               className="header__authorization"
@@ -25,14 +38,6 @@ function Header(props) {
               Выйти
             </Link>
           </>
-        ) : location.pathname === "/sign-in" ? (
-          <Link className="header__authorization" to={"/sign-up"}>
-            Регистрация
-          </Link>
-        ) : location.pathname === "/sign-up" ? (
-          <Link className="header__authorization" to={"/sign-in"}>
-            Войти
-          </Link>
         ) : (
           ""
         )}

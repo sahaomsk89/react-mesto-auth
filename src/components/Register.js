@@ -35,27 +35,27 @@ const Register = (props) => {
       <input
         type="email"
         placeholder="Email"
-        value={state.email}
+        value={state.email || ""}
         onChange={handleChange}
         className="popup-form__input popup-form__input_authorization popup-form__input_name"
         id="email"
         name="email"
         minLength="2"
         maxLength="40"
-        required
+        require="true"
       />
       <span className="input-name-error popup-form__error"></span>
       <input
         type="password"
         placeholder="Пароль"
-        value={state.password}
+        value={state.password || ""}
         onChange={handleChange}
         className="popup-form__input popup-form__input_authorization popup-form__input_job"
         id="password"
         name="password"
         minLength="2"
         maxLength="200"
-        required
+        require="true"
       />
       <span className="input-job-error popup-form__error"></span>
       <button
