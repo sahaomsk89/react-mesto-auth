@@ -37,15 +37,6 @@ function App(props) {
     React.useState(false);
 
   const history = useHistory();
-
-  React.useEffect(() => {
-    Promise.all([api.getProfile(), api.getInitialCards()])
-      .then(([userInfo, cardInfo]) => {
-        setCurrentUser(userInfo);
-        setCards(cardInfo);
-      })
-      .catch((err) => console.log(`Ошибка: ${err}`));
-  }, []);
   
    React.useEffect(() => { 
     handleCheckToken(); 
