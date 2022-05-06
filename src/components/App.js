@@ -39,17 +39,27 @@ function App(props) {
   const history = useHistory();
 
   React.useEffect(() => {
-    handleCheckToken();
+    Promise.all([api.getProfile(), api.getInitialCards()])
+      .then(([userInfo, cardInfo]) => {
+        setCurrentUser(userInfo);
+        setCards(cardInfo);
+      })
+      .catch((err) => console.log(`Ошибка: ${err}`));
   }, []);
-
-  React.useEffect(() => {
-    if (loggedIn) {
-      history.push("/");
-      return;
-    }
-    history.push("/sign-up");
-  }, [loggedIn]);
-
+  
+   React.useEffect(() => { 
+    handleCheckToken(); 
+    if (loggedIn) { 
+      history.push("/"); 
+    Promise.all([api.getProfile(), api.getInitialCards()]) 
+      .then(([userInfo, cardInfo]) => { 
+        setCurrentUser(userInfo); 
+        setCards(cardInfo); 
+      }) 
+      .catch((err) => console.log(`Ошибка: ${err}`)); 
+        } 
+  }, [loggedIn]); 
+  
   const handleLogin = (email, password) => {
     authApi
       .authorize(email, password)
@@ -102,15 +112,6 @@ function App(props) {
     localStorage.removeItem("jwt");
     history.push("/sign-in");
   };
-
-  React.useEffect(() => {
-    Promise.all([api.getProfile(), api.getInitialCards()])
-      .then(([userInfo, cardInfo]) => {
-        setCurrentUser(userInfo);
-        setCards(cardInfo);
-      })
-      .catch((err) => console.log(`Ошибка: ${err}`));
-  }, []);
 
   function handleCardLike(card) {
     // Снова проверяем, есть ли уже лайк на этой карточке
